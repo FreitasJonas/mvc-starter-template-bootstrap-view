@@ -1,0 +1,18 @@
+﻿.log-body {
+    background-color: #111827;
+    overflow: hidden;
+}
+
+.log-pre {
+    margin: 0;
+    padding: 16px;
+    max-height: 650px;
+    overflow: auto;
+    font-size: 0.85rem;
+    font-family: Consolas, Monaco, monospace;
+    color: #e5e7eb;
+    line-height: 1.45;
+    background: transparent;
+    white-space: pre-wrap;
+    word-break: break-word;
+}

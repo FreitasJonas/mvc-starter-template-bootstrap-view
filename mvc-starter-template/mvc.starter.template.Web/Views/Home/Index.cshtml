@@ -1,0 +1,266 @@
+﻿@{
+    ViewData["Title"] = "Application";
+}
+
+@await Html.PartialAsync("_IndexAlerts")
+
+<div class="container-fluid">
+
+    <!-- HERO -->
+    <div class="row mb-5">
+        <div class="col-lg-10 col-xl-8">
+
+            <span class="badge bg-primary mb-3">
+                Enterprise Application Foundation
+            </span>
+
+            <h1 class="display-5 fw-bold mb-3">
+                MVC Starter Template
+            </h1>
+
+            <p class="lead text-muted mb-4">
+                A production-ready foundation built with <strong>.NET 8</strong>,
+                designed for secure, scalable and maintainable corporate systems.
+            </p>
+
+            <div class="alert alert-info d-flex align-items-start shadow-sm">
+                <i class="bi bi-info-circle-fill me-3 fs-4"></i>
+                <div>
+                    This is not just a UI template. It includes structured
+                    authentication, authorization, auditing, logging and
+                    database versioning from day one.
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOUNDATION IDEA -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h4 class="fw-semibold mb-3 d-flex align-items-center">
+                        <i class="bi bi-lightbulb-fill text-warning me-2"></i>
+                        Architectural foundation
+                    </h4>
+
+                    <p class="text-muted mb-0">
+                        The system is structured using a layered architecture
+                        that separates Web, Application, Domain and Data layers.
+                        This ensures maintainability, scalability and long-term
+                        evolution without coupling business logic to UI or infrastructure.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CORE CAPABILITIES -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h3 class="fw-semibold mb-3 d-flex align-items-center">
+                <i class="bi bi-gear-fill me-2 text-primary"></i>
+                Core capabilities
+            </h3>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+
+        <!-- Security -->
+        <div class="col-md-6 col-xl-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-semibold mb-3 d-flex align-items-center">
+                        <i class="bi bi-shield-lock-fill text-primary me-2"></i>
+                        Security & Access Control
+                    </h5>
+                    <ul class="list-unstyled text-muted small mb-3">
+                        <li>✔ Cookie-based authentication</li>
+                        <li>✔ Two-factor verification (2FA)</li>
+                        <li>✔ Policy-based authorization</li>
+                        <li>✔ Fine-grained permission model</li>
+                    </ul>
+                    <span class="badge bg-success">Structured</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Management -->
+        <div class="col-md-6 col-xl-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-semibold mb-3 d-flex align-items-center">
+                        <i class="bi bi-people-fill text-primary me-2"></i>
+                        Users & Roles
+                    </h5>
+                    <ul class="list-unstyled text-muted small mb-3">
+                        <li>✔ User lifecycle management</li>
+                        <li>✔ Role assignment</li>
+                        <li>✔ Permission synchronization</li>
+                        <li>✔ Claim-based enforcement</li>
+                    </ul>
+                    <a href="/Users" class="btn btn-sm btn-outline-primary">
+                        Manage users
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Auditing -->
+        <div class="col-md-6 col-xl-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-semibold mb-3 d-flex align-items-center">
+                        <i class="bi bi-clipboard-data-fill text-primary me-2"></i>
+                        Auditing
+                    </h5>
+                    <ul class="list-unstyled text-muted small mb-3">
+                        <li>✔ Structured audit records</li>
+                        <li>✔ Sensitive data tracking</li>
+                        <li>✔ User activity history</li>
+                        <li>✔ Database persistence</li>
+                    </ul>
+                    <a href="/Audit" class="btn btn-sm btn-outline-primary">
+                        View audits
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Logging -->
+        <div class="col-md-6 col-xl-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-semibold mb-3 d-flex align-items-center">
+                        <i class="bi bi-file-earmark-text-fill text-primary me-2"></i>
+                        Logging
+                    </h5>
+                    <ul class="list-unstyled text-muted small mb-3">
+                        <li>✔ File-based logging</li>
+                        <li>✔ Daily log rotation</li>
+                        <li>✔ Built-in log viewer</li>
+                        <li>✔ Global exception middleware</li>
+                    </ul>
+                    <a href="/Log" class="btn btn-sm btn-outline-primary">
+                        Open logs
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Database -->
+        <div class="col-md-6 col-xl-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-semibold mb-3 d-flex align-items-center">
+                        <i class="bi bi-database-fill text-primary me-2"></i>
+                        Database & Migration
+                    </h5>
+                    <ul class="list-unstyled text-muted small mb-3">
+                        <li>✔ Automatic database creation</li>
+                        <li>✔ Version-controlled scripts</li>
+                        <li>✔ Transactional migrations</li>
+                        <li>✔ MySQL / MariaDB support</li>
+                    </ul>
+                    <span class="badge bg-warning text-dark">
+                        Deterministic
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Architecture -->
+        <div class="col-md-6 col-xl-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-semibold mb-3 d-flex align-items-center">
+                        <i class="bi bi-layers-fill text-primary me-2"></i>
+                        Architecture
+                    </h5>
+                    <ul class="list-unstyled text-muted small mb-3">
+                        <li>✔ Layered structure</li>
+                        <li>✔ Domain isolation</li>
+                        <li>✔ ADO.NET data layer</li>
+                        <li>✔ Clean dependency direction</li>
+                    </ul>
+                    <span class="badge bg-info text-dark">
+                        Scalable
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- USE CASES -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h3 class="fw-semibold mb-3 d-flex align-items-center">
+                <i class="bi bi-building me-2 text-primary"></i>
+                What can you build?
+            </h3>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+
+        <div class="col-md-6 col-xl-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <strong>Corporate Internal Systems</strong>
+                    <p class="text-muted small mt-2 mb-0">
+                        HR platforms, internal portals, approval workflows
+                        and administrative dashboards.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <strong>SaaS Platforms</strong>
+                    <p class="text-muted small mt-2 mb-0">
+                        Multi-user applications with roles,
+                        permissions and structured audit trails.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <strong>Compliance-Critical Systems</strong>
+                    <p class="text-muted small mt-2 mb-0">
+                        Applications requiring strict traceability,
+                        logs and controlled access enforcement.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FINAL CTA -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm bg-primary text-white">
+                <div class="card-body d-flex align-items-center">
+                    <i class="bi bi-rocket-takeoff-fill fs-3 me-3"></i>
+                    <div>
+                        <strong>Explore the system in action.</strong>
+                        <div class="small">
+                            Create users, configure roles, inspect logs
+                            and observe how permissions and auditing
+                            behave in a structured environment.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

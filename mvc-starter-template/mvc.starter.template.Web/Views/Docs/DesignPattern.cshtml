@@ -1,0 +1,248 @@
+﻿@{
+    ViewData["Title"] = "Architecture & Design Patterns";
+    ViewData["Description"] =
+        "Technical documentation describing the layered architecture, design principles and structural organization used in the MVC Starter Template.";
+}
+
+@await Html.PartialAsync("_IndexAlerts")
+
+<div class="container-fluid">
+
+    <!-- Header -->
+    <div class="row mb-5">
+        <div class="col-xl-9">
+
+            <span class="badge bg-primary-subtle text-primary mb-2">
+                Documentation
+            </span>
+
+            <h1 class="fw-bold mb-3">
+                Architecture & Design Patterns
+            </h1>
+
+            <p class="fs-5 text-muted">
+                This document explains the architectural structure,
+                design principles and separation strategy adopted
+                in the solution.
+            </p>
+
+            <div class="alert alert-info mt-4">
+                <i class="bi bi-info-circle me-2"></i>
+                The architecture is structured to support scalability,
+                maintainability and long-term evolution.
+            </div>
+        </div>
+    </div>
+
+    <!-- High-Level Structure -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4 bg-light-subtle">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-diagram-3 me-2"></i>
+                    Solution structure
+                </h4>
+
+<pre class="mb-0">
+mvc.starter.template.sln
+│
+├── mvc.starter.template.Web
+│   → MVC layer (Controllers, Views, Filters, Middlewares)
+│
+├── mvc.starter.template.Application
+│   → Use cases and application services
+│
+├── mvc.starter.template.Domain
+│   → Core business entities and rules
+│
+├── mvc.starter.template.Data
+│   → Data access (MySql.Data / ADO.NET)
+│
+└── mvc.starter.template.Shared
+    → Cross-cutting utilities and shared abstractions
+</pre>
+
+                <p class="text-muted mt-3 mb-0">
+                    Each project has a clearly defined responsibility
+                    and explicit dependency direction.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Architectural Principles -->
+    <div class="row mb-4">
+        <div class="col-xl-12">
+            <h3 class="fw-semibold mb-3">
+                <i class="bi bi-compass me-2"></i>
+                Architectural principles
+            </h3>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+
+        <div class="col-md-6 col-xl-4">
+            <div class="border rounded p-4 h-100">
+                <strong>Separation of Concerns</strong>
+                <p class="text-muted mt-2 mb-0">
+                    UI, business logic and data access are isolated
+                    in independent layers.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-4">
+            <div class="border rounded p-4 h-100">
+                <strong>Dependency Direction</strong>
+                <p class="text-muted mt-2 mb-0">
+                    Higher-level layers depend only on abstractions
+                    and never on infrastructure implementations.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-4">
+            <div class="border rounded p-4 h-100">
+                <strong>Explicit Boundaries</strong>
+                <p class="text-muted mt-2 mb-0">
+                    Business rules are kept inside the Domain layer,
+                    avoiding leakage into controllers or repositories.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Web Layer -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-window me-2"></i>
+                    Web Layer (MVC)
+                </h4>
+
+                <p class="text-muted mb-3">
+                    The Web project handles HTTP communication,
+                    view rendering and request orchestration.
+                </p>
+
+                <ul class="text-muted mb-0">
+                    <li>Controllers coordinate use cases</li>
+                    <li>Views contain no business logic</li>
+                    <li>Filters handle cross-cutting concerns (audit, validation)</li>
+                    <li>Middleware centralizes exception handling</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Layer -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-gear me-2"></i>
+                    Application Layer
+                </h4>
+
+                <p class="text-muted mb-3">
+                    This layer implements system use cases and
+                    orchestrates interactions between Domain and Data.
+                </p>
+
+                <ul class="text-muted mb-0">
+                    <li>Application services</li>
+                    <li>Transaction coordination</li>
+                    <li>Workflow implementation</li>
+                    <li>No dependency on UI</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Domain Layer -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-box me-2"></i>
+                    Domain Layer
+                </h4>
+
+                <p class="text-muted mb-3">
+                    The Domain project contains pure business logic.
+                </p>
+
+                <ul class="text-muted mb-0">
+                    <li>Entities and value objects</li>
+                    <li>Business rules enforcement</li>
+                    <li>No infrastructure dependencies</li>
+                    <li>Fully unit-testable</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Layer -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-database me-2"></i>
+                    Data Layer
+                </h4>
+
+                <p class="text-muted mb-3">
+                    The Data project provides concrete implementations
+                    for persistence.
+                </p>
+
+                <ul class="text-muted mb-0">
+                    <li>Repositories using MySql.Data</li>
+                    <li>Explicit SQL control</li>
+                    <li>Transaction support</li>
+                    <li>Isolated from UI logic</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cross-Cutting -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4 bg-light-subtle">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-layers me-2"></i>
+                    Cross-cutting concerns
+                </h4>
+
+                <ul class="text-muted mb-0">
+                    <li>Auditing (Filters)</li>
+                    <li>Logging (file-based)</li>
+                    <li>Security policies and permission handlers</li>
+                    <li>Validation attributes</li>
+                    <li>Shared helpers and extensions</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Closing -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="alert alert-primary d-flex align-items-center">
+                <i class="bi bi-check-circle me-3 fs-3"></i>
+                <div>
+                    <strong>Layered and scalable foundation</strong>
+                    <div class="small">
+                        The structure enforces discipline through clear
+                        boundaries, making the solution easier to extend,
+                        test and maintain over time.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

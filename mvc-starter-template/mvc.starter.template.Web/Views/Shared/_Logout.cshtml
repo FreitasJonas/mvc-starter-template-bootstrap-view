@@ -1,0 +1,46 @@
+﻿<div class="modal fade" id="logout-modal-alert" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Confirm Logout
+                </h5>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close">
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <p class="mb-2">
+                    Do you really want to log out of the system?
+                </p>
+
+                <p class="small text-muted mb-0">
+                    For better security, consider closing this browser after logging out.
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal">
+                    Cancel
+                </button>
+
+                @using (Html.BeginForm("Logout", "Login", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <button type="submit" class="btn btn-danger">
+                        Logout
+                    </button>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>

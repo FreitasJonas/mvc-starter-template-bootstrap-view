@@ -1,0 +1,114 @@
+﻿@model mvc.starter.template.Web.ViewModels.LogIndexViewModel
+
+@{
+    ViewData["Title"] = "Log";
+}
+
+@await Html.PartialAsync("_IndexSubheader", (IndexSubheaderViewModel)ViewBag.Subheader)
+@await Html.PartialAsync("_IndexAlerts")
+
+@section styles {
+    <link rel="stylesheet" href="~/css/log.css" />
+}
+
+<div class="">
+
+    <!-- FILTER -->
+    <div class="row">
+        <div class="col-12">
+
+            <form method="get"
+                  asp-controller="Log"
+                  asp-action="Index"
+                  class="row g-3 align-items-end mb-4">
+
+                <div class="col-md-3">
+                    <label class="form-label small text-muted">
+                        Log date
+                    </label>
+
+                    <input type="date"
+                           name="date"
+                           value="@(Model.Date?.ToString("yyyy-MM-dd"))"
+                           class="form-control" />
+                </div>
+
+                <div class="col-md-4 d-flex align-items-end gap-2">
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        <i class="bi bi-eye me-1"></i>
+                        View logs
+                    </button>
+
+                    @if (Model.FileExists && Model.Date.HasValue)
+                    {
+                        <a asp-action="Download"
+                           asp-route-date="@Model.Date.Value.ToString("yyyy-MM-dd")"
+                           data-no-loader="true"
+                           class="btn btn-outline-secondary">
+                            <i class="bi bi-download me-1"></i>
+                            Download2
+                        </a>
+                    }
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    @if (Model.Date.HasValue)
+    {
+        <div class="row">
+            <div class="col-12">
+
+                <div class="border rounded">
+
+                    <!-- HEADER -->
+                    <div class="d-flex justify-content-between align-items-center px-3 py-2 border-bottom bg-light">
+
+                        <div>
+                            <i class="bi bi-file-earmark-text me-2"></i>
+                            <strong>Log content</strong>
+
+                            @if (Model.TotalLines > 0)
+                            {
+                                <span class="text-muted ms-2 small">
+                                    Showing last 2000 lines of @Model.TotalLines
+                                </span>
+                            }
+                        </div>
+
+                    </div>
+
+                    <!-- BODY -->
+                    <div class="log-body">
+
+                        @if (!Model.FileExists)
+                        {
+                            <div class="alert alert-warning m-3">
+                                Log file not found for selected date.
+                            </div>
+                        }
+                        else
+                        {
+                            <pre class="log-pre">
+                                @Model.LogContent
+                                    </pre>
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    }
+
+</div>
+
+@section scripts {
+
+}

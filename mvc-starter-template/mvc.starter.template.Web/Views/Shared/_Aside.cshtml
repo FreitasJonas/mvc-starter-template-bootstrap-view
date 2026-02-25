@@ -1,0 +1,230 @@
+﻿@using static mvc.starter.template.Shared.Security.PermissionMap
+
+@{
+    bool canUsers = Html.HasPermission(Permission.UsersView);
+    bool canRoles = Html.HasPermission(Permission.RolesView);
+    bool canAudit = Html.HasPermission(Permission.Audit);
+    bool canLog = Html.HasPermission(Permission.Log);
+}
+
+<ul class="sidebar-nav nav flex-column">
+
+    <!-- APPLICATION -->
+    <li class="nav-item">
+        <div class="sidebar-section">Application</div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link @Html.RouteIf("Home", "active")"
+           asp-controller="Home"
+           asp-action="Index">
+            <i class="bi bi-house me-2"></i>
+            Home
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link d-flex justify-content-between align-items-center"
+           data-bs-toggle="collapse"
+           href="#accessMenu"
+           role="button">
+
+            <span>
+                <i class="bi bi-shield-lock me-2"></i>
+                Access Control
+            </span>
+
+            <i class="bi bi-chevron-down small"></i>
+        </a>
+
+        <div class="collapse @Html.RouteIf("Users;Roles", "show")"
+             id="accessMenu">
+
+            <ul class="nav flex-column sub-menu">
+
+                <!-- USERS -->
+                <li class="nav-item">
+                    @if (canUsers)
+                    {
+                        <a class="nav-link @Html.RouteIf("Users", "active")"
+                           asp-controller="Users"
+                           asp-action="Index">
+                            Users
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="nav-link disabled-link"
+                           href="javascript:void(0)"
+                           data-bs-toggle="tooltip"
+                           title="You do not have permission to access Users">
+                            Users
+                            <i class="bi bi-lock ms-2 small"></i>
+                        </a>
+                    }
+                </li>
+
+                <!-- ROLES -->
+                <li class="nav-item">
+                    @if (canRoles)
+                    {
+                        <a class="nav-link @Html.RouteIf("Roles", "active")"
+                           asp-controller="Roles"
+                           asp-action="Index">
+                            Roles
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="nav-link disabled-link"
+                           href="javascript:void(0)"
+                           data-bs-toggle="tooltip"
+                           title="You do not have permission to access Roles">
+                            Roles
+                            <i class="bi bi-lock ms-2 small"></i>
+                        </a>
+                    }
+                </li>
+
+            </ul>
+        </div>
+    </li>
+
+
+    <li class="nav-item">
+        <a class="nav-link d-flex justify-content-between align-items-center"
+           data-bs-toggle="collapse"
+           href="#auditMenu"
+           role="button">
+
+            <span>
+                <i class="bi bi-clipboard-data me-2"></i>
+                Audit & Logs
+            </span>
+
+            <i class="bi bi-chevron-down small"></i>
+        </a>
+
+        <div class="collapse @Html.RouteIf("Audit;Log", "show")"
+             id="auditMenu">
+
+            <ul class="nav flex-column sub-menu">
+
+                <li class="nav-item">
+                    @if (canAudit)
+                    {
+                        <a class="nav-link @Html.RouteIf("Audit", "active")"
+                           asp-controller="Audit"
+                           asp-action="Index">
+                            Audit
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="nav-link disabled-link"
+                           href="javascript:void(0)"
+                           data-bs-toggle="tooltip"
+                           title="You do not have permission to access Audit">
+                            Audit
+                            <i class="bi bi-lock ms-2 small"></i>
+                        </a>
+                    }
+                </li>
+
+                <li class="nav-item">
+                    @if (canLog)
+                    {
+                        <a class="nav-link @Html.RouteIf("Log", "active")"
+                           asp-controller="Log"
+                           asp-action="Index">
+                            Log
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="nav-link disabled-link"
+                           href="javascript:void(0)"
+                           data-bs-toggle="tooltip"
+                           title="You do not have permission to access Logs">
+                            Log
+                            <i class="bi bi-lock ms-2 small"></i>
+                        </a>
+                    }
+                </li>
+
+            </ul>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link d-flex justify-content-between align-items-center"
+           data-bs-toggle="collapse"
+           href="#docsMenu"
+           role="button">
+
+            <span>
+                <i class="bi bi-book me-2"></i>
+                Documentation
+            </span>
+
+            <i class="bi bi-chevron-down small"></i>
+        </a>
+
+        <div class="collapse @Html.RouteIf("Docs","show")"
+             id="docsMenu">
+
+            <ul class="nav flex-column sub-menu">
+
+                <li class="nav-item">
+                    <a class="nav-link @Html.RouteIf("GettingStarted", "Docs", "active")"
+                       asp-controller="Docs"
+                       asp-action="GettingStarted">
+                        Getting Started
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link @Html.RouteIf("DesignPattern", "Docs", "active")"
+                       asp-controller="Docs"
+                       asp-action="DesignPattern">
+                        Design Pattern
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link @Html.RouteIf("Database", "Docs", "active")"
+                       asp-controller="Docs"
+                       asp-action="Database">
+                        Database
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link @Html.RouteIf("FrontEnd", "Docs", "active")"
+                       asp-controller="Docs"
+                       asp-action="FrontEnd">
+                        Front-End
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link @Html.RouteIf("Security", "Docs", "active")"
+                       asp-controller="Docs"
+                       asp-action="Security">
+                        Security
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link @Html.RouteIf("AuditingAndLogging", "Docs", "active")"
+                       asp-controller="Docs"
+                       asp-action="AuditingAndLogging">
+                        Auditing & Logging
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </li>
+
+</ul>

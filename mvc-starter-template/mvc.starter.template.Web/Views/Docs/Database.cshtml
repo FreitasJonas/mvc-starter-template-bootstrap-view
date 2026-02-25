@@ -1,0 +1,238 @@
+﻿@{
+    ViewData["Title"] = "Database Architecture & Initialization";
+    ViewData["Description"] =
+        "Documentation describing database structure, initialization and migration strategy using MySQL or MariaDB in the MVC Starter Template.";
+}
+
+@await Html.PartialAsync("_IndexAlerts")
+
+<div class="container-fluid">
+
+    <!-- Header -->
+    <div class="row mb-5">
+        <div class="col-xl-9">
+
+            <span class="badge bg-primary-subtle text-primary mb-2">
+                Documentation
+            </span>
+
+            <h1 class="fw-bold mb-3">
+                Database, Initialization & Versioning
+            </h1>
+
+            <p class="fs-5 text-muted">
+                This section explains how the database layer is structured,
+                how schema versioning is controlled and how initialization
+                is automatically executed during application startup.
+            </p>
+
+            <div class="alert alert-info mt-4">
+                <i class="bi bi-info-circle me-2"></i>
+                The database lifecycle is deterministic and does not rely
+                on ORM-specific migration frameworks.
+            </div>
+        </div>
+    </div>
+
+    <!-- Supported Databases -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-database me-2"></i>
+                    Supported databases
+                </h4>
+
+                <ul class="text-muted mb-3">
+                    <li>MySQL</li>
+                    <li>MariaDB</li>
+                </ul>
+
+                <div class="alert alert-warning mb-0">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    Data access is implemented using <strong>MySql.Data (ADO.NET)</strong>,
+                    providing full SQL control and predictable performance.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schema Overview -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4 bg-light-subtle">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-table me-2"></i>
+                    Schema overview
+                </h4>
+
+                <p class="text-muted mb-3">
+                    The schema supports authentication, authorization,
+                    auditing and operational control.
+                </p>
+
+                <ul class="text-muted mb-0">
+                    <li><strong>users</strong> – system users</li>
+                    <li><strong>roles</strong> – access profiles</li>
+                    <li><strong>permissions</strong> – granular authorization</li>
+                    <li><strong>user_roles</strong> – user/role mapping</li>
+                    <li><strong>audit_logs</strong> – structured audit history</li>
+                    <li><strong>schema_version</strong> – migration control</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connection Strategy -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-plug me-2"></i>
+                    Connection string strategy
+                </h4>
+
+                <p class="text-muted mb-3">
+                    A single connection string is defined in
+                    <code>appsettings.json</code> under
+                    <code>ConnectionStrings:DefaultConnection</code>.
+                </p>
+
+<pre class="mb-3">
+"ConnectionStrings": {
+  "DefaultConnection": "Server=localhost;
+                        Database=mvc_template;
+                        Uid=root;
+                        Pwd=root;
+                        Allow User Variables=True;
+                        AllowBatch=True;"
+}
+</pre>
+
+                <p class="text-muted mb-0">
+                    This same connection string is used for both database
+                    creation (if missing) and normal application execution.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Initialization Flow -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4 bg-light-subtle">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-play-circle me-2"></i>
+                    First application execution
+                </h4>
+
+                <p class="text-muted mb-3">
+                    When the application starts and the database does not exist,
+                    the initialization routine performs:
+                </p>
+
+                <ol class="text-muted mb-0">
+                    <li>Extract database name from connection string</li>
+                    <li>Connect to the server without selecting a database</li>
+                    <li>Create the database if it does not exist</li>
+                    <li>Execute the initial schema script</li>
+                    <li>Insert the initial record into <code>schema_version</code></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Structure -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-folder2-open me-2"></i>
+                    Migration script structure
+                </h4>
+
+<pre class="mb-3">
+Infrastructure
+ └── Scripts
+      001.sql
+      002.sql
+</pre>
+
+                <p class="text-muted mb-0">
+                    Each script represents a deterministic schema version.
+                    Scripts are executed in ascending order and tracked
+                    through the <code>schema_version</code> table.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schema Version Control -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4 bg-light-subtle">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-code-branch me-2"></i>
+                    Schema version control
+                </h4>
+
+<pre class="mb-3">
+schema_version
+--------------------------------
+version        VARCHAR
+applied_at     DATETIME
+</pre>
+
+                <p class="text-muted mb-0">
+                    Before executing a migration, the system verifies whether
+                    the version already exists. This prevents duplicate execution
+                    and guarantees idempotent upgrades.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Automatic Migration Flow -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-arrow-repeat me-2"></i>
+                    Automatic migration flow
+                </h4>
+
+                <ol class="text-muted mb-3">
+                    <li>Read current schema version from database</li>
+                    <li>Compare with available script files</li>
+                    <li>Execute pending scripts inside a transaction</li>
+                    <li>Insert applied version into <code>schema_version</code></li>
+                </ol>
+
+                <div class="alert alert-success mb-0">
+                    <i class="bi bi-check-circle me-2"></i>
+                    If an error occurs during execution, the transaction is rolled back
+                    and no partial changes are persisted.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Architectural Rationale -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="alert alert-primary d-flex align-items-center">
+                <i class="bi bi-lightbulb me-3 fs-3"></i>
+                <div>
+                    <strong>Architectural rationale</strong>
+                    <div class="small">
+                        This approach ensures deterministic schema evolution,
+                        eliminates hidden ORM behaviors and provides full
+                        control over SQL changes — suitable for production
+                        and enterprise environments.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

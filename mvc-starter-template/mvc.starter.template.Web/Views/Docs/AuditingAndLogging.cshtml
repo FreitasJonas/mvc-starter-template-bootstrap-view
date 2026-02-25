@@ -1,0 +1,234 @@
+﻿@{
+    ViewData["Title"] = "Auditing & Logging";
+    ViewData["Description"] =
+        "Documentation explaining how auditing and logging are implemented in the MVC Starter Template using filters, middleware and file-based logs.";
+}
+
+@await Html.PartialAsync("_IndexAlerts")
+
+<div class="container-fluid">
+
+    <!-- Header -->
+    <div class="row mb-5">
+        <div class="col-xl-9">
+
+            <span class="badge bg-warning-subtle text-warning mb-2">
+                Traceability
+            </span>
+
+            <h1 class="fw-bold mb-3">
+                Auditing & Logging
+            </h1>
+
+            <p class="fs-5 text-muted">
+                The system provides structured auditing for business actions
+                and file-based logging for technical events. Both mechanisms
+                are designed to work independently while complementing each other.
+            </p>
+
+            <div class="alert alert-warning mt-4">
+                <i class="bi bi-shield-check me-2"></i>
+                Traceability is part of the core architecture and not an optional add-on.
+            </div>
+        </div>
+    </div>
+
+    <!-- Concept Separation -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4 bg-light-subtle">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-diagram-3 me-2"></i>
+                    Auditing vs Logging
+                </h4>
+
+                <p class="text-muted mb-3">
+                    Although related, auditing and logging solve different problems
+                    and are implemented at different architectural levels.
+                </p>
+
+                <ul class="text-muted mb-0">
+                    <li><strong>Auditing</strong> – tracks user-driven business actions</li>
+                    <li><strong>Logging</strong> – records technical and operational events</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auditing -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-person-check me-2"></i>
+                    Auditing
+                </h4>
+
+                <p class="text-muted mb-3">
+                    Auditing answers the question: <strong>who did what and when?</strong>
+                    It focuses on business-level operations that require accountability.
+                </p>
+
+                <ul class="text-muted mb-3">
+                    <li>User creation, update and deletion</li>
+                    <li>Role and permission changes</li>
+                    <li>Sensitive configuration changes</li>
+                    <li>Security-relevant actions</li>
+                </ul>
+
+                <div class="alert alert-info mb-0">
+                    <i class="bi bi-info-circle me-2"></i>
+                    Audit data is structured and persisted in the database,
+                    enabling filtering, reporting and compliance analysis.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audit Implementation -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4 bg-light-subtle">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-gear me-2"></i>
+                    Audit implementation
+                </h4>
+
+                <p class="text-muted mb-3">
+                    Auditing is implemented using action filters and explicit
+                    service-level recording.
+                </p>
+
+                <ul class="text-muted mb-0">
+                    <li><strong>AuditAttribute</strong> – declarative auditing at controller/action level</li>
+                    <li><strong>AuditActionFilter</strong> – centralized interception logic</li>
+                    <li>Storage of old and new values for comparison</li>
+                    <li>Capture of user identity and timestamp</li>
+                </ul>
+
+                <p class="text-muted mt-3 mb-0">
+                    This approach avoids duplicating audit logic inside controllers
+                    while maintaining explicit control at the application layer.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logging -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-file-earmark-text me-2"></i>
+                    Logging
+                </h4>
+
+                <p class="text-muted mb-3">
+                    Logging captures technical events such as exceptions,
+                    warnings and execution flow diagnostics.
+                </p>
+
+                <ul class="text-muted mb-3">
+                    <li>Unhandled exceptions</li>
+                    <li>Application warnings</li>
+                    <li>Informational execution messages</li>
+                </ul>
+
+                <div class="alert alert-secondary mb-0">
+                    <i class="bi bi-info-circle me-2"></i>
+                    Logs are written to plain text files inside the application's
+                    <code>Logs</code> directory.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exception Handling -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4 bg-light-subtle">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    Global exception handling
+                </h4>
+
+                <p class="text-muted mb-3">
+                    The system uses a centralized middleware component
+                    to intercept unhandled exceptions.
+                </p>
+
+                <ul class="text-muted mb-0">
+                    <li><strong>GlobalExceptionMiddleware</strong></li>
+                    <li>Standardized error logging</li>
+                    <li>Prevents stack trace exposure in production</li>
+                    <li>Ensures consistent error responses</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Log Storage -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-folder2 me-2"></i>
+                    Log file structure
+                </h4>
+
+<pre class="mb-3">
+/Logs
+    20260206.txt
+    20260211.txt
+    20260224.txt
+</pre>
+
+                <p class="text-muted mb-0">
+                    Files are generated daily and named by date,
+                    simplifying inspection, rotation and retention policies.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Log Viewer -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4 bg-light-subtle">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-eye me-2"></i>
+                    Built-in log viewer
+                </h4>
+
+                <p class="text-muted mb-3">
+                    The <strong>LogController</strong> provides a UI interface
+                    for viewing log files directly from the application.
+                </p>
+
+                <ul class="text-muted mb-0">
+                    <li>Date-based selection</li>
+                    <li>Optional line limits</li>
+                    <li>File download support</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Benefits -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="alert alert-primary d-flex align-items-center">
+                <i class="bi bi-check-circle me-3 fs-3"></i>
+                <div>
+                    <strong>Structured and scalable traceability</strong>
+                    <div class="small">
+                        The separation between auditing and logging ensures
+                        accountability at the business level and reliability
+                        at the infrastructure level without external dependencies.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

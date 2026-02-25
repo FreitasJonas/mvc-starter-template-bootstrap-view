@@ -1,0 +1,68 @@
+﻿@model IEnumerable<mvc.starter.template.Domain.Entities.Role>
+
+@using System.Text.Json
+@using mvc.starter.template.Web.ViewModels
+
+@{
+    ViewData["Title"] = "Roles";
+}
+
+@section styles {
+    <link href="~/css/tabulator.min.css" rel="stylesheet" />
+    <link href="~/css/app.tabulator.css" rel="stylesheet" />
+
+}
+
+@await Html.PartialAsync(
+            "_IndexSubheader",
+            (IndexSubheaderViewModel)ViewBag.Subheader
+        )
+
+@await Html.PartialAsync("_IndexAlerts")
+@await Html.PartialAsync("_SearchBoxTabulator", "Search roles...")
+
+<div class="mt-4">
+    <div id="rolesTable"></div>
+</div>
+
+@section Scripts {
+
+    <script src="~/js/tabulator.min.js"></script>
+    <script src="~/js/index-table.js"></script>
+    <script>
+        const data = @Html.Raw(JsonSerializer.Serialize(Model));
+
+        initIndexTable({
+            selector: "#rolesTable",
+            data: data,
+            editUrl: "/Roles/Edit",
+            idField: "Id",
+            searchInput: "#tableSearch",
+
+            columns: [
+                {
+                    title: "Role",
+                    field: "Name",
+                    headerSort: true,
+                    formatter: (cell) => {
+
+                        const r = cell.getRow().getData();
+
+                        return `
+                            <div class="py-1">
+                                <div class="fw-semibold text-dark">
+                                    ${r.Name}
+                                </div>
+                                ${r.Description
+                                    ? `<div class="text-muted small mt-1">
+                                           ${r.Description}
+                                       </div>`
+                                    : ""}
+                            </div>
+                        `;
+                    }
+                }
+            ]
+        });
+    </script>
+}

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<UserListItemViewModel>
+@using System.Text.Json;
+
+@section styles {
+    <link href="~/css/tabulator.min.css" rel="stylesheet" />
+    <link href="~/css/app.tabulator.css" rel="stylesheet" />
+
+}
+
+@await Html.PartialAsync("_IndexSubheader", (IndexSubheaderViewModel)ViewBag.Subheader)
+@await Html.PartialAsync("_IndexAlerts")
+@await Html.PartialAsync("_SearchBoxTabulator", "Search users...")
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div id="usersTable"></div>
+
+@section scripts {
+
+    <script src="~/js/tabulator.min.js"></script>
+    <script src="~/js/index-table.js"></script>
+    <script>
+        const data = @Html.Raw(JsonSerializer.Serialize(Model));
+
+        initIndexTable({
+            selector: "#usersTable",
+            data: data,
+            editUrl: "/Users/Form",
+            idField: "Id",
+            searchInput: "#tableSearch",
+
+            columns: [
+                {
+                    title: "Users",
+                    field: "Nome",
+                    formatter: cell => {
+                        const r = cell.getRow().getData();
+                        return `
+                            <div class="fw-semibold">${r.Name} ${r.LastName}</div>
+                            <div class="text-muted small">${r.Email ?? ""}</div>
+                        `;
+                    }
+                },
+                { title: "Login", field: "Login", width: 160 },
+                { title: "Role", field: "Role", width: 160 },
+                {
+                    title: "Status",
+                    field: "IsActive",
+                    hozAlign: "center",
+                    width: 120,
+                    formatter: c =>
+                        c.getValue()
+                            ? `<span class="badge bg-success-subtle text-success">On</span>`
+                            : `<span class="badge bg-danger-subtle text-danger">Off</span>`
+                }
+            ]
+        });
+    </script>
+}

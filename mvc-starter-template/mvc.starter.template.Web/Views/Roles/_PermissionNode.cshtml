@@ -1,0 +1,51 @@
+﻿@model PermissionTreeNodeViewModel
+
+@{
+    bool isRoot = Model.Key.Equals("system", StringComparison.OrdinalIgnoreCase);
+}
+
+<div class="permission-node" data-root="@isRoot">
+    <div class="permission-header">
+
+        @if (Model.Children.Any())
+        {
+            <button type="button"
+                    class="btn btn-sm btn-link p-0 toggle-node">
+                <i class="bi bi-chevron-down"></i>
+            </button>
+        }
+        else
+        {
+            <span class="toggle-placeholder"></span>
+        }
+
+        <div class="permission-item d-flex align-items-center">
+
+            <input type="checkbox"
+                   class="form-check-input permission-checkbox me-2"
+                   name="SelectedPermissions"
+                   value="@Model.Key"
+                   data-root="@isRoot"
+            @(Model.Checked || isRoot ? "checked" : "")
+            @(isRoot ? "disabled" : "") />
+
+            <label class="permission-label mb-0"
+                   data-bs-toggle="tooltip"
+                   title="@Model.Description">
+                @Model.Label
+            </label>
+
+        </div>
+
+    </div>
+
+    @if (Model.Children.Any())
+    {
+        <div class="permission-children">
+            @foreach (var child in Model.Children)
+            {
+                @Html.Partial("_PermissionNode", child)
+            }
+        </div>
+    }
+</div>

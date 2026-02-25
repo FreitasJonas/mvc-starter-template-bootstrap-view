@@ -1,0 +1,96 @@
+﻿/* =========================
+   LOGIN LAYOUT
+   ========================= */
+
+.login-page {
+    background: #eef1f6;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-wrapper {
+    width: 1100px;
+    max-width: 95%;
+    height: 650px; /* ALTURA FIXA */
+    max-height: 90vh; /* Proteção em telas menores */
+    background: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    display: flex;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+}
+
+
+/* LEFT PANEL */
+.login-left {
+    flex: 1;
+    background: linear-gradient(135deg, #4f6bed, #5d7df2);
+    color: white;
+    padding: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.login-left-content {
+    max-width: 400px;
+}
+
+.login-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.login-subtitle {
+    opacity: 0.9;
+    font-size: 1rem;
+}
+
+.logo {
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+    .logo .dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background: white;
+        border-radius: 50%;
+        margin-right: 8px;
+    }
+
+/* RIGHT PANEL */
+.login-right {
+    flex: 1;
+    display: flex;
+    align-items: center; /* mantém centralizado vertical */
+    justify-content: center;
+    padding: 60px;
+}
+
+.login-left,
+.login-right {
+    min-height: 100%;
+}
+
+.login-form-container {
+    width: 100%;
+    max-width: 360px;
+}
+
+.code-input {
+    letter-spacing: 10px;
+    font-size: 1.4rem;
+}
+
+/* Buttons */
+.btn-primary {
+    border-radius: 12px;
+}
+
+.btn-outline-primary {
+    border-radius: 12px;
+}

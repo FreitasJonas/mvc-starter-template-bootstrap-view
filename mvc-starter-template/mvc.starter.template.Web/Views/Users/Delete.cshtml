@@ -1,0 +1,51 @@
+﻿@model mvc.starter.template.Domain.Entities.User
+
+@{
+    ViewData["Title"] = "Delete User";
+}
+
+<div class="subheader">
+    <h1 class="subheader-title text-danger">
+        Confirmation of Exclusion
+    </h1>
+</div>
+
+<div class="card">
+    <div class="card-body">
+
+        <div class="alert alert-danger">
+            <strong>Caution!</strong><br />
+            This action cannot be undone.
+        </div>
+
+        <p>
+            Are you sure you want to delete the user below?
+        </p>
+
+        <ul class="list-group mb-4 w-50">
+            <li class="list-group-item">
+                <strong>Name:</strong> @Model.Name @Model.LastName
+            </li>
+            <li class="list-group-item">
+                <strong>Login:</strong> @Model.Login
+            </li>
+            <li class="list-group-item">
+                <strong>Email:</strong> @Model.Email
+            </li>
+        </ul>
+
+        <form asp-action="DeleteConfirmed" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" value="@Model.Id" />
+
+            <button type="submit" class="btn btn-danger">
+                Delete
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-secondary ms-2">
+                Cancel
+            </a>
+        </form>
+    </div>
+</div>

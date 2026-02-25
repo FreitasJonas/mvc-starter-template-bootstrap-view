@@ -1,0 +1,100 @@
+﻿/* =====================================================
+   PERMISSION TREE
+   Visual Flat - Bootstrap Based
+===================================================== */
+
+/* Container principal */
+.permission-tree {
+    font-size: 1rem;
+}
+
+/* Espaçamento entre nós */
+.permission-node {
+    margin-bottom: 0.3rem;
+}
+
+/* Header (toggle + item) */
+.permission-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Botão toggle */
+.toggle-node {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.15s ease;
+}
+
+    .toggle-node:hover {
+        color: #0d6efd;
+    }
+
+/* Placeholder para alinhar nós sem filhos */
+.toggle-placeholder {
+    width: 18px;
+    display: inline-block;
+}
+
+/* Checkbox + Label container */
+.permission-item {
+    display: flex;
+    align-items: center;
+    padding: 6px 8px;
+    border-radius: 6px;
+    transition: background-color 0.15s ease;
+}
+
+/* Checkbox maior */
+.permission-checkbox {
+    /*transform: scale(1.2);*/
+    margin: 0;
+    cursor: pointer;
+}
+
+/* Label */
+.permission-label {
+    /*margin-left: 0.5rem;*/
+    cursor: pointer;
+    user-select: none;
+    line-height: 0.5;
+}
+
+/* Hover elegante */
+.permission-item:hover {
+    background-color: rgba(13, 110, 253, 0.06);
+}
+
+    .permission-item:hover .permission-label {
+        color: #0d6efd;
+    }
+
+/* Destacar quando marcado */
+.permission-checkbox:checked + .permission-label {
+    font-weight: 600;
+}
+
+/* Linha vertical hierárquica */
+.permission-children {
+    border-left: 1px solid #dee2e6;
+    padding-left: 1.2rem;
+    margin-top: 0.1rem;
+}
+
+/* Nó raiz pode ter leve destaque */
+.permission-node[data-root="True"] > .permission-header .permission-label {
+    font-weight: 600;
+    color: #0d6efd;
+}
+
+/* Ajuste estado indeterminado */
+.permission-checkbox:indeterminate {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}

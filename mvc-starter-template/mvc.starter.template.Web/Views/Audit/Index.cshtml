@@ -1,0 +1,291 @@
+﻿@model IReadOnlyList<mvc.starter.template.Application.DTOs.AuditLogListItemDto>
+@using System.Text.Json
+
+@{
+    ViewData["Title"] = "Audit";
+}
+
+@await Html.PartialAsync("_IndexSubheader", (IndexSubheaderViewModel)ViewBag.Subheader)
+@await Html.PartialAsync("_IndexAlerts")
+@await Html.PartialAsync("_SearchBoxTabulator", "Search records...")
+
+@section styles {
+    <link rel="stylesheet" href="~/css/audit.css" />
+    <link href="~/css/tabulator.min.css" rel="stylesheet" />
+    <link href="~/css/app.tabulator.css" rel="stylesheet" />
+}
+
+<!-- FILTERS -->
+<div class="row g-3 mb-4">
+
+    <div class="col-md-3">
+        <label class="form-label small text-muted">Start</label>
+        <input type="date" id="startDate" class="form-control" />
+    </div>
+
+    <div class="col-md-3">
+        <label class="form-label small text-muted">End</label>
+        <input type="date" id="endDate" class="form-control" />
+    </div>
+
+    <div class="col-md-3">
+        <label class="form-label small text-muted">User</label>
+        <input type="text"
+               id="userLogin"
+               class="form-control"
+               placeholder="User login" />
+    </div>
+
+    <div class="col-md-2">
+        <label class="form-label small text-muted">Action</label>
+        <select id="action" class="form-select">
+            <option value="">All</option>
+            <option value="CREATE">CREATE</option>
+            <option value="UPDATE">UPDATE</option>
+            <option value="DELETE">DELETE</option>
+            <option value="LOGIN_SUCCESS">LOGIN</option>
+            <option value="LOGOUT">LOGOUT</option>
+        </select>
+    </div>
+
+    <div class="col-md-1 d-flex align-items-end">
+        <button id="btnSearch"
+                class="btn btn-primary w-100">
+            <i class="bi bi-search"></i>
+        </button>
+    </div>
+
+</div>
+
+<div id="auditTable"></div>
+
+<div class="text-muted small text-end mt-2">
+    Displaying a maximum of <strong>1000</strong> records per query
+</div>
+
+<!-- DETAILS MODAL -->
+<div class="modal fade" id="auditDetailModal" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="bi bi-journal-text me-2"></i>
+                    Audit Details
+                </h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <!-- HEADER INFO -->
+                <div class="row mb-4">
+
+                    <div class="col-md-3">
+                        <div class="text-muted small">Date</div>
+                        <div id="detailCreatedAt" class="fw-semibold"></div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="text-muted small">User</div>
+                        <div id="detailUser"></div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="text-muted small">Action</div>
+                        <div id="detailAction"></div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="text-muted small">Entity</div>
+                        <div id="detailEntity"></div>
+                    </div>
+
+                </div>
+
+                <!-- JSON -->
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <h6 class="text-muted mb-2">
+                            <i class="bi bi-clock-history me-1"></i>
+                            Previous Values
+                        </h6>
+                        <pre id="detailOldValues"
+                             class="audit-json"></pre>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h6 class="text-muted mb-2">
+                            <i class="bi bi-check-circle me-1"></i>
+                            Current Values
+                        </h6>
+                        <pre id="detailNewValues"
+                             class="audit-json"></pre>
+                    </div>
+
+                </div>
+
+                <hr class="my-4" />
+
+                <div class="row small text-muted">
+                    <div class="col-md-6">
+                        <strong>IP:</strong> <span id="detailIp"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>User Agent:</strong> <span id="detailAgent"></span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script src="~/js/tabulator.min.js"></script>
+    <script src="~/js/index-table.js"></script>
+    <script>
+        
+        const initialData = @Html.Raw(JsonSerializer.Serialize(Model,
+        new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        }));
+
+        let table;
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            table = initIndexTable({
+                selector: "#auditTable",
+                data: initialData,
+                searchInput: "#tableSearch",
+                pageSize: 50,
+
+                columns: [
+                    {
+                        title: "Date",
+                        field: "createdAt",
+                        width: 170,
+                        formatter: c => {
+                            const v = c.getValue();
+                            if (!v) return "-";
+                            const d = new Date(v);
+                            return isNaN(d) ? "-" : d.toLocaleString();
+                        }
+                    },
+                    {
+                        title: "User",
+                        field: "userLogin",
+                        width: 180
+                    },
+                    {
+                        title: "Action",
+                        field: "action",
+                        width: 140,
+                        hozAlign: "center",
+                        formatter: c => {
+                            const v = c.getValue();
+
+                            const map = {
+                                CREATE: "bg-success-subtle text-success",
+                                UPDATE: "bg-warning-subtle text-warning",
+                                DELETE: "bg-danger-subtle text-danger",
+                                LOGIN_SUCCESS: "bg-success-subtle text-success",
+                                LOGOUT: "bg-secondary-subtle text-secondary"
+                            };
+
+                            const css = map[v] ?? "bg-light text-dark";
+                            return `<span class="badge ${css}">${v}</span>`;
+                        }
+                    },
+                    {
+                        title: "Summary",
+                        field: "valuesSummary"
+                    }
+                ],
+
+                onRowClick: (data) => {
+                    loadAuditDetails(data.id);
+                }
+            });
+
+            document.getElementById("btnSearch")
+                .addEventListener("click", searchAudit);
+        });
+
+
+        async function searchAudit() {
+
+            const payload = {
+                startDate: document.getElementById("startDate").value || null,
+                endDate: document.getElementById("endDate").value || null,
+                userLogin: document.getElementById("userLogin").value || null,
+                action: document.getElementById("action").value || null,
+                limit: 1000
+            };
+
+            const response = await fetch("@Url.Action("Search", "Audit")", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            const result = await response.json();
+
+            if (!result.success) {
+                alert(result.message || "Error searching audit.");
+                return;
+            }
+
+            table.setData(result.data);
+        }
+
+        async function loadAuditDetails(id) {
+
+            const response = await fetch(
+                "@Url.Action("Details", "Audit")?id=" + id);
+
+            const d = await response.json();
+
+            document.getElementById("detailCreatedAt").textContent =
+                new Date(d.createdAt).toLocaleString();
+
+            document.getElementById("detailUser").textContent =
+                d.userLogin || "-";
+
+            document.getElementById("detailAction").innerHTML =
+                `<span class="badge bg-info">${d.action}</span>`;
+
+            document.getElementById("detailEntity").textContent =
+                `${d.entityName} (${d.entityId})`;
+
+            document.getElementById("detailOldValues").textContent =
+                d.oldValues
+                    ? JSON.stringify(JSON.parse(d.oldValues), null, 2)
+                    : "—";
+
+            document.getElementById("detailNewValues").textContent =
+                d.newValues
+                    ? JSON.stringify(JSON.parse(d.newValues), null, 2)
+                    : "—";
+
+            document.getElementById("detailIp").textContent =
+                d.ipAddress || "-";
+
+            document.getElementById("detailAgent").textContent =
+                d.userAgent || "-";
+
+            const modal = new bootstrap.Modal(
+                document.getElementById("auditDetailModal"));
+
+            modal.show();
+        }
+
+    </script>
+}

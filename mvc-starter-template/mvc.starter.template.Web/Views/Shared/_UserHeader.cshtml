@@ -1,0 +1,54 @@
+﻿@{
+    var userId = User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value;
+    var userName = User.Identity?.Name ?? "User";
+}
+
+<div class="dropdown">
+
+    <button class="btn btn-light dropdown-toggle d-flex align-items-center"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+
+        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-2"
+             style="width:32px; height:32px; font-size:14px;">
+            @userName.Substring(0, 1).ToUpper()
+        </div>
+
+        <span class="small">@userName</span>
+    </button>
+
+    <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+
+        <li class="dropdown-item-text small text-muted">
+            Signed in as<br />
+            <strong>@userName</strong>
+        </li>
+
+        <li><hr class="dropdown-divider" /></li>
+
+        @if (!string.IsNullOrEmpty(userId))
+        {
+            <li>
+                <a class="dropdown-item"
+                   asp-controller="Users"
+                   asp-action="Form"
+                   asp-route-id="@userId">
+                    Profile
+                </a>
+            </li>
+        }
+
+        <li><hr class="dropdown-divider" /></li>
+
+        <li>
+            <a class="dropdown-item text-danger"
+               href="#"
+               data-bs-toggle="modal"
+               data-bs-target="#logout-modal-alert">
+                Logout
+            </a>
+        </li>
+
+    </ul>
+</div>

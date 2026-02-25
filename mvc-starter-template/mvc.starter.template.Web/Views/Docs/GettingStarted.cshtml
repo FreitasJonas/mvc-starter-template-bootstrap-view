@@ -1,0 +1,236 @@
+﻿@{
+    ViewData["Title"] = "Getting Started";
+    ViewData["Description"] =
+        "Getting started guide for the MVC Starter Template. Learn how to configure, initialize and run the system.";
+}
+
+@await Html.PartialAsync("_IndexAlerts")
+
+<div class="container-fluid">
+
+    <!-- Header -->
+    <div class="row mb-5">
+        <div class="col-xl-9">
+
+            <span class="badge bg-primary-subtle text-primary mb-2">
+                Documentation
+            </span>
+
+            <h1 class="fw-bold mb-3">
+                Getting Started
+            </h1>
+
+            <p class="fs-5 text-muted">
+                This guide explains how to configure and run the
+                MVC Starter Template for the first time,
+                including database initialization and environment setup.
+            </p>
+
+            <div class="alert alert-info mt-4">
+                <i class="bi bi-info-circle me-2"></i>
+                The project is structured for real-world systems,
+                with clear separation of responsibilities and automated setup.
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Overview -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4 bg-light-subtle">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-diagram-3 me-2"></i>
+                    Solution overview
+                </h4>
+
+<pre class="mb-0">
+mvc.starter.template.sln
+│
+├── mvc.starter.template.Web
+│   → MVC layer (Controllers, Views, Filters, Middlewares)
+│
+├── mvc.starter.template.Application
+│   → Application services and use cases
+│
+├── mvc.starter.template.Domain
+│   → Business entities and rules
+│
+├── mvc.starter.template.Data
+│   → Data access using MySql.Data (ADO.NET)
+│
+└── mvc.starter.template.Shared
+    → Cross-cutting utilities and abstractions
+</pre>
+
+                <p class="text-muted mt-3 mb-0">
+                    The architecture enforces separation between UI,
+                    business logic and infrastructure.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Requirements -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <h3 class="fw-semibold mb-3">
+                <i class="bi bi-check-circle me-2"></i>
+                System Requirements
+            </h3>
+        </div>
+
+        <div class="col-md-6 col-xl-4">
+            <div class="border rounded p-4 h-100">
+                <h6 class="fw-semibold mb-2">Backend</h6>
+                <ul class="text-muted mb-0">
+                    <li>.NET SDK 8.0+</li>
+                    <li>Visual Studio 2022+ or VS Code</li>
+                    <li>ASP.NET Core runtime</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-4">
+            <div class="border rounded p-4 h-100">
+                <h6 class="fw-semibold mb-2">Database</h6>
+                <ul class="text-muted mb-0">
+                    <li>MySQL 8+ or MariaDB 10+</li>
+                    <li>Local or remote instance</li>
+                    <li>Valid database user credentials</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-4">
+            <div class="border rounded p-4 h-100">
+                <h6 class="fw-semibold mb-2">Front-End</h6>
+                <ul class="text-muted mb-0">
+                    <li>Bootstrap 5 (local)</li>
+                    <li>Bootstrap Icons</li>
+                    <li>Tabulator.js</li>
+                    <li>Vanilla JavaScript</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Configuration -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-gear me-2"></i>
+                    Configuration
+                </h4>
+
+                <p class="text-muted mb-3">
+                    Update the connection string in
+                    <code>appsettings.json</code>:
+                </p>
+
+<pre class="mb-3">
+"ConnectionStrings": {
+  "DefaultConnection": "Server=localhost;
+                        Database=mvc_template;
+                        Uid=root;
+                        Pwd=root;
+                        Allow User Variables=True;
+                        AllowBatch=True;"
+}
+</pre>
+
+                <p class="text-muted mb-0">
+                    No manual execution of SQL scripts is required.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- First Run -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4 bg-light-subtle">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-play-circle me-2"></i>
+                    First execution flow
+                </h4>
+
+                <ol class="text-muted mb-3">
+                    <li>Clone or download the repository</li>
+                    <li>Configure <code>appsettings.json</code></li>
+                    <li>Run the application</li>
+                </ol>
+
+                <div class="alert alert-warning mb-0">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    On startup, the system automatically:
+                    <ul class="mt-2 mb-0">
+                        <li>Creates the database (if missing)</li>
+                        <li>Executes pending migration scripts</li>
+                        <li>Initializes default roles and permissions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Features -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <h3 class="fw-semibold mb-3">
+                <i class="bi bi-stars me-2"></i>
+                Core features
+            </h3>
+        </div>
+
+        <div class="col-md-6 col-xl-4">
+            <div class="border rounded p-4 h-100">
+                <strong>Authentication & Authorization</strong>
+                <p class="text-muted mt-2 mb-0">
+                    Cookie-based authentication,
+                    two-factor authentication (2FA),
+                    policy-driven authorization and
+                    permission-based access control.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-4">
+            <div class="border rounded p-4 h-100">
+                <strong>User & Role Management</strong>
+                <p class="text-muted mt-2 mb-0">
+                    Complete user lifecycle management,
+                    role assignment and permission tree control.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-4">
+            <div class="border rounded p-4 h-100">
+                <strong>Auditing & Logging</strong>
+                <p class="text-muted mt-2 mb-0">
+                    Structured audit records stored in the database
+                    and file-based technical logging.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Closing -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="alert alert-primary d-flex align-items-center">
+                <i class="bi bi-arrow-right me-3 fs-3"></i>
+                <div>
+                    <strong>Next steps</strong>
+                    <div class="small">
+                        Explore the Architecture, Database and Security
+                        sections to understand the internal structure
+                        and extension points of the system.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

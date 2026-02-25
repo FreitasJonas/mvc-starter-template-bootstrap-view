@@ -1,0 +1,29 @@
+bin/
+obj/
+Logs/
+.vs/
+.vscode/
+*.user
+*.suo
+*.pdb
+appsettings.Development.json
+
+# Logs
+logs/
+*.log
+
+# Environment
+appsettings.Development.json
+appsettings.Production.json
+
+# SmartAdmin (vendor)
+wwwroot/smart-admin-*
+wwwroot/img/*
+
+# Secrets
+*.key
+*.pem
+
+
+# Ignore bin folder of Web project
+mvc-starter-template/mvc.starter.template.Web/bin/

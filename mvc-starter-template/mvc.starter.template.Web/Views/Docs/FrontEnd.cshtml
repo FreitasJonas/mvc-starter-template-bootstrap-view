@@ -1,0 +1,189 @@
+﻿@{
+    ViewData["Title"] = "Front-End Architecture";
+    ViewData["Description"] =
+        "Front-end documentation for MVC Starter Template. Learn how Bootstrap, Tabulator, custom JavaScript and modular CSS are organized.";
+}
+
+@await Html.PartialAsync("_IndexAlerts")
+
+<div class="container-fluid">
+    <div class="row mb-5">
+        <div class="col-xl-9">
+
+            <span class="badge bg-primary-subtle text-primary mb-2">
+                Documentation
+            </span>
+
+            <h1 class="fw-bold mb-3">
+                Front-End Architecture & UI
+            </h1>
+
+            <p class="fs-5 text-muted">
+                This section explains how the front-end layer is structured,
+                how static assets are organized and how UI behavior is implemented
+                without external UI frameworks.
+            </p>
+
+            <div class="alert alert-info mt-4">
+                <i class="bi bi-info-circle me-2"></i>
+                The UI layer is intentionally lightweight, framework-independent
+                and fully controlled by the project.
+            </div>
+        </div>
+    </div>
+
+    <!-- Technology Stack -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-layers me-2"></i>
+                    UI Technology Stack
+                </h4>
+
+                <ul class="text-muted mb-0">
+                    <li><strong>ASP.NET Core MVC (.NET 8)</strong></li>
+                    <li><strong>Bootstrap 5 (local installation)</strong></li>
+                    <li><strong>Bootstrap Icons</strong></li>
+                    <li><strong>Tabulator.js</strong> – advanced table rendering</li>
+                    <li><strong>Vanilla JavaScript</strong> – no jQuery dependency</li>
+                    <li><strong>Modular CSS files</strong> organized by context</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Static Structure -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4 bg-light-subtle">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-folder2-open me-2"></i>
+                    Static asset structure
+                </h4>
+
+<pre class="mb-0">
+wwwroot
+│
+├── css
+│   ├── app.css
+│   ├── app.login.css
+│   ├── app.aside.css
+│   ├── app.breadcrumb.css
+│   ├── app.permission-tree.css
+│   ├── app.loader.css
+│   ├── app.tabulator.css
+│   ├── audit.css
+│   └── log.css
+│
+├── js
+│   ├── app.js
+│   ├── app.loader.js
+│   ├── form-validator.js
+│   ├── index-table.js
+│   ├── permissions-tree.js
+│   ├── tabulator.min.js
+│   └── tabulator.pt-br.js
+│
+├── img
+│   └── login-logo.png
+│
+└── lib
+    └── bootstrap
+        ├── css
+        └── js
+</pre>
+
+                <p class="text-muted mt-3 mb-0">
+                    Vendor libraries are isolated under <code>lib</code>,
+                    while application-specific assets remain clearly separated.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Layout Strategy -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-window me-2"></i>
+                    Layout strategy
+                </h4>
+
+                <ul class="text-muted mb-0">
+                    <li><strong>_Layout.cshtml</strong> – main authenticated layout</li>
+                    <li><strong>_LayoutLogin.cshtml</strong> – authentication pages</li>
+                    <li>Reusable partials (_Aside, _IndexAlerts, _UserHeader, _Loader)</li>
+                </ul>
+
+                <p class="text-muted mt-3">
+                    This separation keeps authentication flows isolated
+                    from the main system UI and reduces layout complexity.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Architecture -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4 bg-light-subtle">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-code-slash me-2"></i>
+                    JavaScript architecture
+                </h4>
+
+                <ul class="text-muted mb-0">
+                    <li>No jQuery usage</li>
+                    <li>File-based responsibility separation</li>
+                    <li>Minimal inline scripts</li>
+                    <li>Event-driven interactions</li>
+                    <li>Tabulator abstraction via index-table.js</li>
+                </ul>
+
+                <p class="text-muted mt-3 mb-0">
+                    JavaScript is organized by functional context
+                    instead of global scripts, improving maintainability
+                    and long-term scalability.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CSS Philosophy -->
+    <div class="row mb-5">
+        <div class="col-xl-12">
+            <div class="border rounded p-4">
+                <h4 class="fw-semibold mb-3">
+                    <i class="bi bi-brush me-2"></i>
+                    CSS organization philosophy
+                </h4>
+
+                <ul class="text-muted mb-0">
+                    <li>Context-based styles (login, audit, log, permission-tree)</li>
+                    <li>No CSS framework overrides beyond Bootstrap base</li>
+                    <li>Low specificity rules to avoid cascade conflicts</li>
+                    <li>Separation between layout styles and feature styles</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- UX Principles -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="alert alert-primary d-flex align-items-center">
+                <i class="bi bi-check-circle me-3 fs-3"></i>
+                <div>
+                    <strong>Front-end philosophy</strong>
+                    <div class="small">
+                        The front-end layer is designed to be stable,
+                        vendor-neutral, scalable and easy to extend,
+                        without hidden dependencies or proprietary frameworks.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

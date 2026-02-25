@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - MVC Starter</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Jonas Freitas" />
+
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="~/css/app.css" rel="stylesheet" />
+    <link href="~/css/app.aside.css" rel="stylesheet" />
+    <link href="~/css/app.breadcrumb.css" rel="stylesheet" />
+    <link href="~/css/app.loader.css" rel="stylesheet" />
+
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+
+    <div class="layout d-flex min-vh-100">
+
+        <!-- Sidebar -->
+        <aside class="sidebar p-3 border-end">
+
+            <div class="sidebar-brand mb-4">
+                <span class="fw-semibold fs-5">MVC Starter</span>
+            </div>
+
+            @Html.Partial("_Aside")
+
+        </aside>
+
+        <!-- Content -->
+        <div class="content-wrapper d-flex flex-column flex-grow-1">
+
+            <!-- Topbar -->
+            <nav class="navbar navbar-light bg-white border-bottom px-4">
+                <div class="ms-auto">
+                    @Html.Partial("_UserHeader")
+                </div>
+            </nav>
+
+            <!-- Page -->
+            <main class="p-4 flex-grow-1">
+                @RenderBody()
+            </main>
+
+        </div>
+
+    </div>
+
+    @Html.Partial("_Logout")
+
+    @Html.Partial("_Loader")
+
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/app.js"></script>
+    <script src="~/js/app.loader.js"></script>
+    
+    @RenderSection("Scripts", required: false)
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+                document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
+        });
+    </script>
+
+</body>
+</html>

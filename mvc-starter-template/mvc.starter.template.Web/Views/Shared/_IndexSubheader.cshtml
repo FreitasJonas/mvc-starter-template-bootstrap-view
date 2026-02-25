@@ -1,0 +1,69 @@
+﻿@model mvc.starter.template.Web.ViewModels.IndexSubheaderViewModel
+
+<div class="page-header mb-4">
+
+    <div class="d-flex justify-content-between align-items-end flex-wrap gap-3">
+
+        <div>
+
+            @if (Model.Breadcrumb != null && Model.Breadcrumb.Any())
+            {
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb custom-breadcrumb mb-2">
+
+                        @foreach (var item in Model.Breadcrumb)
+                        {
+                            if (item.IsActive)
+                            {
+                                <li class="breadcrumb-item active"
+                                    aria-current="page">
+                                    @item.Text
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="breadcrumb-item">
+                                    <a asp-controller="@item.Controller"
+                                       asp-action="@item.Action">
+                                        @item.Text
+                                    </a>
+                                </li>
+                            }
+                        }
+
+                    </ol>
+                </nav>
+            }
+
+            <div class="page-title d-flex align-items-center">
+
+                @if (!string.IsNullOrWhiteSpace(Model.Icon))
+                {
+                    <div class="page-title-icon me-2">
+                        <i class="@Model.Icon"></i>
+                    </div>
+                }
+
+                <h4 class="mb-0 fw-semibold">
+                    @Model.Title
+                </h4>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT -->
+        @if (!string.IsNullOrWhiteSpace(Model.ActionUrl))
+        {
+            <div>
+                <a href="@Model.ActionUrl"
+                   class="btn btn-primary btn-sm px-3">
+                    <i class="bi bi-plus-lg me-1"></i>
+                    @Model.ActionText
+                </a>
+            </div>
+        }
+
+    </div>
+
+</div>

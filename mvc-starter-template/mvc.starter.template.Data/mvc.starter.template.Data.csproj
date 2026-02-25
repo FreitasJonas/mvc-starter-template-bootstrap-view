@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.2" />
+		<PackageReference Include="MySql.Data" Version="9.6.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\mvc.starter.template.Application\mvc.starter.template.Application.csproj" />
+		<ProjectReference Include="..\mvc.starter.template.Domain\mvc.starter.template.Domain.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Infrastructure\Scripts\**\*.sql">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+</Project>
