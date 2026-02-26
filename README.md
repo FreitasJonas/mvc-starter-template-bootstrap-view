@@ -11,6 +11,12 @@ Start with a solid foundation.
 Demo View:
 https://mvc-starter-template-bootstrap.onrender.com/
 
+🚀 Pro Version Available
+Includes full layered architecture, authentication, permissions and admin layout.
+
+👉 Get it here:
+https://jonasdev.gumroad.com/l/qgxfle
+
 ---
 
 ## 🎯 Why this exists
