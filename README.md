@@ -168,7 +168,7 @@ The **Pro version** includes:
 If you are building a serious product, the Pro version saves weeks of development time.
 
 📩 Contact for Pro access:  
-your@email.com
+sistemas@desenvolvedorjonas.com.br
 
 ---
 
